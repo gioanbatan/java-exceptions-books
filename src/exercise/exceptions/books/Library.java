@@ -1,5 +1,7 @@
 package exercise.exceptions.books;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
@@ -39,14 +41,10 @@ public class Library {
             }
         }
 
+        System.out.println("\n-------------------\n\n");
+        
         // Chiusura scan input
         scan.close();
-
-        // Ciclo stampa su schermo
-        for (int i = 0; i < books.length; i++) {
-            System.out.println(books[i].toString());
-            System.out.println();
-        }
 
         // Gestione file
         // Creazione del file
@@ -55,6 +53,7 @@ public class Library {
             myFileWriter = new FileWriter("library.txt");
             for (int i = 0; i < books.length; i++) {
                 myFileWriter.write(books[i].toString() + "\n");
+                myFileWriter.write("-------------------------\n\n");
             }
         } catch (IOException e) {
             System.out.println("Errore nella scrittura del file." + e);
@@ -65,6 +64,26 @@ public class Library {
                 } catch (IOException e) {
                     System.out.println("Errore file");
                     e.printStackTrace();
+                }
+            }
+        }
+
+        // Lettura del file
+        Scanner reader = null;
+        try {
+            reader = new Scanner(new File("./library.txt"));
+            while (reader.hasNext()) {
+                String line = reader.nextLine();
+                System.out.println(line);
+            }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IllegalStateException ise) {
+                    ise.printStackTrace();
                 }
             }
         }
