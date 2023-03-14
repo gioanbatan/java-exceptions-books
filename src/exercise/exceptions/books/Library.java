@@ -10,20 +10,37 @@ public class Library {
         // Presentazione e richiesta numero di libri da inserire
         System.out.println("Ciao! Benvenuto in biblioteca!");
         System.out.print("\nQuanti libri vuoi inserire? ");
-        int booksQty = scan.nextInt();
-
-        System.out.println("\n");
+        Book[] books = new Book [Integer.parseInt(scan.nextLine())];
 
         // Ciclo inserimento libri
-        for (int i = 0; i < booksQty; i++) {
+        for (int i = 0; i < books.length ; i++) {
             // Inserimento dati libro
+            System.out.println();
             System.out.println("Creazione di un nuovo libro.");
+
             System.out.print("Titolo: ");
+            String title = scan.nextLine();
+
             System.out.print("Numero di pagine: ");
+            int pages = Integer.parseInt(scan.nextLine());
+
             System.out.print("Nome dell'autore: ");
+            String author = scan.nextLine();
+
             System.out.print("Nome dell'editore: ");
+            String publisher = scan.nextLine();
 
+            try {
+                books[i] = new Book(title, pages, author, publisher);
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
 
+        // Ciclo stampa su schermo
+        for (int i = 0; i < books.length ; i++) {
+            System.out.println(books[i].toString());
+            System.out.println();
         }
     }
 }

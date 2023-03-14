@@ -9,10 +9,10 @@ public class Book {
 
     // Constructors
     public Book(String title, int pages, String author, String publisher) {
-        this.title = title;
-        this.pages = pages;
-        this.author = author;
-        this.publisher = publisher;
+        this.title = titleValidator(title);
+        this.pages = pagesValidator(pages);
+        this.author = authorValidator(author);
+        this.publisher = publisherValidator(publisher);
     }
 
     public Book() {
@@ -24,7 +24,7 @@ public class Book {
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        this.title = titleValidator(title);
     }
 
     public int getPages() {
@@ -32,7 +32,7 @@ public class Book {
     }
 
     public void setPages(int pages) {
-        this.pages = pages;
+        this.pages = pagesValidator(pages);
     }
 
     public String getAuthor() {
@@ -40,7 +40,7 @@ public class Book {
     }
 
     public void setAuthor(String author) {
-        this.author = author;
+        this.author = authorValidator(author);
     }
 
     public String getPublisher() {
@@ -48,16 +48,47 @@ public class Book {
     }
 
     public void setPublisher(String publisher) {
-        this.publisher = publisher;
+        this.publisher = publisherValidator(publisher);
     }
 
     // Methods
-    private boolean titleValidator(String title) {
+    private String titleValidator(String title) {
         if (title.equals("")) {
-
-            //DEBUG
-            System.out.println("Nooo");
+            throw new RuntimeException("Il titolo non può essere vuoto");
         }
-        return true;
+        return title;
+    }
+    private int pagesValidator(int pages) {
+        try {
+        } catch (NumberFormatException e) {
+            System.out.println("Le pagine devon esssere un numero");
+        }
+        if (pages <= 0) {
+            throw new RuntimeException("Le pagine devono essere maggiori di 0");
+        }
+
+        return pages;
+    }
+    private String authorValidator(String author) {
+        if (author.equals("")) {
+            throw new RuntimeException("L'autore non può essere vuoto");
+        }
+        return author;
+    }
+
+    private String publisherValidator(String publisher) {
+        if (publisher.equals("")) {
+            throw new RuntimeException("L'editore non può essere vuoto");
+        }
+        return publisher;
+    }
+
+    @Override
+    public String toString() {
+        return "Libro \n" +
+                "Titolo " + title + '\n' +
+                "Pagine " + pages + '\n' +
+                "Autore " + author + '\n' +
+                "Editore " + publisher;
     }
 }
